@@ -9,7 +9,7 @@ void loop() {
   byte receivedData = 0;  // Variable para almacenar el byte recibido
   byte bitCount = 0;    // Contador de bits
   while (digitalRead(2) == HIGH); // Espera hasta que el pin sea LOW
-  delay(30);
+  delay(3000);
 //Cambio de Sebastian desde rama
   while (bitCount < 8) {
     // Espera a que el bit cambie (transición de LOW a HIGH o HIGH a LOW)
