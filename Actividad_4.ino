@@ -1,12 +1,15 @@
+// Cambio de Britney En archivo actualizado por Sebastian 
 // C++ code
 // Código para el receptor RX
 void setup() {
   Serial.begin(9600);  // Inicializa la comunicación serial
   pinMode(3, INPUT);  // Configura el pin de bits como entrada
+  pinMode(2, INPUT); // Pin de bits como entrada 
 }
 
 void loop() {
-  byte receivedData = 0;  // Variable para almacenar el byte recibido
+ //Cambio del valor asignado en decimal 204, corresponde a Ì en ASCII
+  byte receivedData = 0b11001100;  // Variable para almacenar el byte recibido
   byte bitCount = 0;    // Contador de bits
 
   while (digitalRead(2) == HIGH); // Espera hasta que el pin sea LOW
@@ -22,17 +25,17 @@ void loop() {
     delay(10);
   }
 
-  // Imprime la secuencia de bits
-  Serial.print("Datos recibidos en binario: ");
-  
-  // "Solución"
-  //receivedData = receivedData << 1;
+//Visualizar los datos 
+  Serial.println("======================"); // Agrego para mejor visualización
+  Serial.println("PROTOCOLO DE RECEPCIÓN");
+  Serial.println("======================");
 
+  Serial.print("Secuencia recibida en binario");
+  printBinary(receivedData);
   
-  printBinary(receivedData);    // Imprime el byte en formato binario
   Serial.print(" El ASCII es: ");//cambie el textooooo
   Serial.print((char)receivedData); // Imprime el carácter ASCII
-  Serial.println(")");
+  Serial.println(" Perfect!");
   receivedData = 0;
   
   delay(1000);  // Espera antes de la siguiente lectura
@@ -40,8 +43,12 @@ void loop() {
 
 // Función para imprimir un byte en formato binario
 void printBinary(byte data) {
+  Serial.print("[ ");
   for (int i = 7; i >= 0; i--) {
-    Serial.print("El número en binario es :");//puse mas texto
+    int bit = (data >> i) & 1;
     Serial.print((data >> i) & 1);  // Imprime cada bit
+    Serial.print(bit);
+    Serial.print(" ");
   }
+    Serial.println("]");
 }
